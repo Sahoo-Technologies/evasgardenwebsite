@@ -15,7 +15,7 @@ export const FEATURED_SPACES: FeatureSpace[] = [
     title: '🌿 The Garden Ceremony Space',
     description: 'Say your vows surrounded by lush greenery, open skies, and nature at its most beautiful. Our garden ceremony area provides a romantic and peaceful setting for unforgettable "I do" moments.',
     icon: 'leaf',
-    image: '/coktail.jpeg',
+    image: '/cocktail.jpeg',
   },
   {
     title: '✨ Reception & Celebration Area',
