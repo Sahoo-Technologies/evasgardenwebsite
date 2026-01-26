@@ -53,10 +53,7 @@ const Contact: React.FC = () => {
                     <h4 className="text-[10px] uppercase tracking-[0.3em] text-purple-400 mb-2 font-bold">Parking</h4>
                     <p className="text-stone-800 font-medium">{CONTACT_INFO.parking}</p>
                   </div>
-                  <div>
-                    <h4 className="text-[10px] uppercase tracking-[0.3em] text-purple-400 mb-2 font-bold">Power</h4>
-                    <p className="text-stone-800 font-medium">{CONTACT_INFO.power}</p>
-                  </div>
+                  
                   <div>
                     <h4 className="text-[10px] uppercase tracking-[0.3em] text-purple-400 mb-2 font-bold">Accessibility</h4>
                     <p className="text-stone-800 font-medium">{CONTACT_INFO.accessibility}</p>
