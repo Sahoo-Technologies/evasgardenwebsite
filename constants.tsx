@@ -61,11 +61,9 @@ export const EVENT_TYPES: EventType[] = [
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   { type: 'image', url: '/header.jpeg', category: 'sunset', alt: 'Eva\'s Garden entrance view' },
-  { type: 'image', url: '/evasgarden2.jpeg', category: 'empty', alt: 'Beautiful garden lawn at Eva\'s Garden' },
   { type: 'image', url: '/evasgarden4.jpeg', category: 'setup', alt: 'Elegant event setup at Eva\'s Garden' },
   { type: 'image', url: '/evasgarden5.jpeg', category: 'sunset', alt: 'Golden hour at Eva\'s Garden' },
   { type: 'image', url: '/evasgarden6.jpeg', category: 'empty', alt: 'Lush greenery at Eva\'s Garden' },
-  { type: 'image', url: '/evasgarden7.jpeg', category: 'setup', alt: 'Celebration setup at Eva\'s Garden' },
   { type: 'image', url: '/evasgarden8.jpeg', category: 'sunset', alt: 'Sunset moments at the garden' },
   { type: 'image', url: '/evasgarden9.jpeg', category: 'empty', alt: 'Serene garden landscape' },
   { type: 'image', url: '/evasgarden10.jpeg', category: 'setup', alt: 'Event preparation at Eva\'s Garden' },
