@@ -1,6 +1,7 @@
 import { NavLink, Outlet, Navigate } from 'react-router-dom';
 import { useAuthStore, useIsManager } from '../../stores/authStore';
 import { FiUpload, FiImage, FiLogOut } from 'react-icons/fi';
+import AnimatedLogo from '../common/AnimatedLogo';
 
 export default function ManagerLayout() {
   const user = useAuthStore((s) => s.user);
@@ -13,7 +14,7 @@ export default function ManagerLayout() {
     <div className="min-h-screen bg-surface-50 flex">
       <aside className="w-64 bg-white border-r border-surface-200 flex flex-col shrink-0 sticky top-0 h-screen">
         <div className="p-6 border-b border-surface-100">
-          <img src="/logo-gold.png" alt="Eva's Garden" className="h-10 mb-2" />
+          <AnimatedLogo variant="default" scale={0.6} className="mb-2" />
           <p className="text-[10px] uppercase tracking-[0.2em] text-navy-400 font-bold">Manager Portal</p>
         </div>
 

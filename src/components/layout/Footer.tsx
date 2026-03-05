@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { CONTACT_INFO } from '../../constants';
 import { FiInstagram, FiPhone, FiMapPin } from 'react-icons/fi';
 import { FaFacebookF, FaWhatsapp, FaTiktok } from 'react-icons/fa';
+import AnimatedLogo from '../common/AnimatedLogo';
 
 export default function Footer() {
   return (
@@ -13,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <img src="/logo-gold.png" alt="Eva's Garden" className="h-14 mb-6 opacity-90" />
+            <AnimatedLogo variant="default" scale={0.72} className="mb-6" />
             <p className="text-navy-400 text-sm leading-relaxed italic font-serif max-w-xs">
               "A timeless outdoor venue nestled in the heart of Redhill, offering a breathtaking
               natural backdrop for life's most beautiful celebrations."

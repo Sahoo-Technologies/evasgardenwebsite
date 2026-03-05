@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants';
 import { useAuthStore } from '../../stores/authStore';
 import { FiMenu, FiX } from 'react-icons/fi';
+import AnimatedLogo from '../common/AnimatedLogo';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -24,19 +25,14 @@ export default function Header() {
     ? 'bg-white/90 backdrop-blur-xl shadow-lg shadow-navy-900/5 py-3'
     : 'bg-transparent py-5';
   const textColor = scrolled || !isHome ? 'text-navy-900' : 'text-white';
-  const logoFilter = scrolled || !isHome ? '' : 'brightness-0 invert';
 
   return (
     <>
       <header className={`fixed w-full z-50 transition-all duration-500 ${headerBg}`}>
         <div className="container mx-auto max-w-7xl px-6 flex justify-between items-center">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center gap-3 group">
-            <img
-              src="/logo-gold.png"
-              alt="Eva's Garden"
-              className={`h-10 md:h-12 transition-all duration-300 ${logoFilter}`}
-            />
+          <NavLink to="/" className="flex items-center gap-3">
+            <AnimatedLogo variant="nav" scale={0.82} />
           </NavLink>
 
           {/* Desktop Nav */}
@@ -114,7 +110,7 @@ export default function Header() {
               <FiX size={28} />
             </button>
 
-            <img src="/logo-gold.png" alt="Eva's Garden" className="h-16 mb-12 opacity-80" />
+            <AnimatedLogo variant="nav" scale={1.05} className="mb-12" />
 
             <nav className="flex flex-col items-center gap-6">
               {NAV_ITEMS.map((item, i) => (

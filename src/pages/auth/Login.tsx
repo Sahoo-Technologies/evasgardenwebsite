@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '../../stores/authStore';
 import { FiMail, FiLock, FiLoader } from 'react-icons/fi';
+import AnimatedLogo from '../../components/common/AnimatedLogo';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ export default function Login() {
         className="relative z-10 bg-white rounded-3xl p-10 w-full max-w-md shadow-2xl"
       >
         <div className="text-center mb-8">
-          <img src="/logo-gold.png" alt="Eva's Garden" className="h-14 mx-auto mb-4" />
+          <AnimatedLogo variant="hero" scale={0.88} className="mx-auto mb-4" />
           <h1 className="text-2xl font-serif text-navy-900 mb-1">Staff Portal</h1>
           <p className="text-xs uppercase tracking-[0.2em] text-navy-400 font-bold">
             Admin & Manager Access

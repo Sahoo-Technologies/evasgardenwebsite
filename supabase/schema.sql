@@ -5,6 +5,20 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ============================================
+-- ADMIN HELPER (SECURITY DEFINER avoids RLS recursion)
+-- ============================================
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin'
+  );
+$$;
+
+-- ============================================
 -- PROFILES (extends Supabase auth.users)
 -- ============================================
 CREATE TABLE public.profiles (
@@ -25,9 +39,7 @@ CREATE POLICY "Users can update own profile"
   ON public.profiles FOR UPDATE USING (auth.uid() = id);
 
 CREATE POLICY "Admins can manage all profiles"
-  ON public.profiles FOR ALL USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.profiles FOR ALL USING (public.is_admin());
 
 -- Auto-create profile on signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
@@ -67,9 +79,7 @@ CREATE POLICY "Categories readable by everyone"
   ON public.gallery_categories FOR SELECT USING (true);
 
 CREATE POLICY "Admins can manage categories"
-  ON public.gallery_categories FOR ALL USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.gallery_categories FOR ALL USING (public.is_admin());
 
 -- Seed default categories
 INSERT INTO public.gallery_categories (name, slug, icon, sort_order) VALUES
@@ -108,14 +118,12 @@ CREATE POLICY "Authenticated users can insert gallery items"
 
 CREATE POLICY "Users can update own uploads"
   ON public.gallery_items FOR UPDATE USING (
-    uploaded_by = auth.uid()
-    OR EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
+    uploaded_by = auth.uid() OR public.is_admin()
   );
 
 CREATE POLICY "Admins can delete any gallery item"
   ON public.gallery_items FOR DELETE USING (
-    uploaded_by = auth.uid()
-    OR EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
+    uploaded_by = auth.uid() OR public.is_admin()
   );
 
 -- ============================================
@@ -144,9 +152,7 @@ CREATE POLICY "Anyone can submit a testimonial"
   ON public.testimonials FOR INSERT WITH CHECK (true);
 
 CREATE POLICY "Admins can manage testimonials"
-  ON public.testimonials FOR ALL USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.testimonials FOR ALL USING (public.is_admin());
 
 -- ============================================
 -- INQUIRIES
@@ -174,14 +180,10 @@ CREATE POLICY "Authenticated users can view inquiries"
   ON public.inquiries FOR SELECT USING (auth.uid() IS NOT NULL);
 
 CREATE POLICY "Admins can manage inquiries"
-  ON public.inquiries FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.inquiries FOR UPDATE USING (public.is_admin());
 
 CREATE POLICY "Admins can delete inquiries"
-  ON public.inquiries FOR DELETE USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.inquiries FOR DELETE USING (public.is_admin());
 
 -- ============================================
 -- EVENT TYPES
@@ -204,9 +206,7 @@ CREATE POLICY "Event types readable by everyone"
   ON public.event_types FOR SELECT USING (true);
 
 CREATE POLICY "Admins can manage event types"
-  ON public.event_types FOR ALL USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.event_types FOR ALL USING (public.is_admin());
 
 -- Seed default event types
 INSERT INTO public.event_types (title, description, image_url, tags, featured, sort_order) VALUES
@@ -236,9 +236,7 @@ CREATE POLICY "Site content readable by everyone"
   ON public.site_content FOR SELECT USING (true);
 
 CREATE POLICY "Admins can manage site content"
-  ON public.site_content FOR ALL USING (
-    EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin')
-  );
+  ON public.site_content FOR ALL USING (public.is_admin());
 
 -- Seed default content
 INSERT INTO public.site_content (section, key, value, content_type) VALUES

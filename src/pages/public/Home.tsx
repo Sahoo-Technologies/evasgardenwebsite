@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import LogoHero3D from '../../components/common/LogoHero3D';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
@@ -51,15 +52,18 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.5 }}
+            initial={{ opacity: 0, scale: 0.7, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1.4, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-8"
           >
-            <img
-              src="/logo-gold.png"
-              alt="Eva's Garden"
-              className="h-24 md:h-36 mx-auto mb-6 drop-shadow-2xl"
-            />
+            {/* continuous float */}
+            <motion.div
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <LogoHero3D className="mx-auto" />
+            </motion.div>
           </motion.div>
 
           <motion.p
